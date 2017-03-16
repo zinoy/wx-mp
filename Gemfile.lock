@@ -40,8 +40,15 @@ GEM
       tzinfo (~> 1.1)
     ansi (1.5.0)
     arel (7.1.4)
+    bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.0.6)
+    ckeditor (4.2.2)
+      cocaine
+      orm_adapter (~> 0.5.0)
+    climate_control (0.1.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -52,10 +59,19 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     debug_inspector (0.0.2)
+    devise (4.2.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.1)
+      responders
+      warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.7.0)
+    fast_gettext (1.3.0)
     ffi (1.9.18)
     formatador (0.2.5)
+    gettext_i18n_rails (1.8.0)
+      fast_gettext (>= 0.9.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     guard (2.13.0)
@@ -79,6 +95,8 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -106,6 +124,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    orm_adapter (0.5.0)
     pg (0.18.4)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -146,6 +165,8 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
+    responders (2.3.0)
+      railties (>= 4.2.0, < 5.1)
     ruby-progressbar (1.8.1)
     sass (3.4.23)
     sass-rails (5.0.6)
@@ -179,6 +200,8 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.1.7)
       execjs (>= 0.3.0, < 3)
+    warden (1.2.7)
+      rack (>= 1.0)
     web-console (3.4.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -193,11 +216,15 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  ckeditor
   coffee-rails (~> 4.2)
+  devise
+  gettext_i18n_rails
   guard (= 2.13.0)
   guard-minitest (= 2.4.4)
   jbuilder (~> 2.5)
   jquery-rails
+  jquery-ui-rails
   listen (~> 3.0.5)
   minitest-reporters (= 1.1.9)
   pg (= 0.18.4)

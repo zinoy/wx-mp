@@ -1,0 +1,2 @@
+class WxBaseController < ApplicationController
+end

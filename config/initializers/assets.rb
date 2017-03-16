@@ -7,5 +7,17 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.paths << Emoji.images_path
 
 # Precompile additional assets.
-# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+# application.js, application.css, and all non-JS/CSS in app/assets folder are
+# already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+Rails.application.config.assets.precompile += %w(plugin/pace/pace.js)
+Rails.application.config.assets.precompile += Ckeditor.assets
+Rails.application.config.assets.precompile += %w(ckeditor/*)
+Rails.application.config.assets.precompile +=
+  %w(plugin/flot/jquery.flot.cust.js)
+Rails.application.config.assets.precompile +=
+  %w(plugin/flot/jquery.flot.resize.js)
+Rails.application.config.assets.precompile +=
+  %w(plugin/flot/jquery.flot.tooltip.min.js)
+Rails.application.config.assets.precompile += %w( demo.js )

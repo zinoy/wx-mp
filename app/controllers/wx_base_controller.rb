@@ -29,12 +29,6 @@ class WxBaseController < ApplicationController
       aeskey = Base64.decode64(WX['weixin']['aeskey'] + "=")
       appid = WX['weixin']['appid']
       content = aes256_decrypt(aeskey, encrypt_content)
-      # content = content.encode Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => '?'
-      # content_pack = content.bytes.pack "C*"
-      # puts content_pack
-      # content_utf8 = (content_pack.unpack "U*").pack "U*"
-      # puts content_utf8.encoding
-      # puts content.end_with? appid
       puts content
       
       if content.end_with? appid
@@ -51,23 +45,44 @@ class WxBaseController < ApplicationController
     @message = Message.find_by :origin_id => oId
     msg_type = xml_doc.xpath("//MsgType").first.content
 
-    if @message.nil? && msg_type == "text"
+    if @message.nil?
       @message = Message.new
-      @message.origin = "wx"
+      @message.origin = "weixin"
       @message.origin_id = oId
       @message.from = xml_doc.xpath("//FromUserName").first.content
-      @message.content = xml_doc.xpath("//Content").first.content
+      @message.content = xml_doc.xpath("//Content").first.content if msg_type == "text"
       @message.to = xml_doc.xpath("//ToUserName").first.content
       @message.msg_type = msg_type
       @message.user_id = params[:openid]
+      @message.media_id = xml_doc.xpath("//MediaId").first.content unless xml_doc.xpath("//MediaId").first.nil?
       @message.send_at = Time.at(xml_doc.xpath("//CreateTime").first.content.to_i)
       @message.params = request.query_parameters
+      
+      case msg_type
+      when "image"
+        @message.url = xml_doc.xpath("//PicUrl").first.content
+      when "voice"
+        @message.format = xml_doc.xpath("//Format").first.content
+        @message.content = xml_doc.xpath("//Recognition").first.content unless xml_doc.xpath("//Recognition").first.nil?
+      when "video", "shortvideo"
+        @message.thumb_media_id = xml_doc.xpath("//ThumbMediaId").first.content
+      when "location"
+        @message.latitude = xml_doc.xpath("//Location_X").first.content
+        @message.longtitude = xml_doc.xpath("//Location_Y").first.content
+        @message.scale = xml_doc.xpath("//Scale").first.content
+        @message.content = xml_doc.xpath("//Label").first.content
+      when "link"
+        @message.title = xml_doc.xpath("//Title").first.content
+        @message.content = xml_doc.xpath("//Description").first.content
+        @message.url = xml_doc.xpath("//Url").first.content
+      end
+      
       @message.save
     end
 
     if authenticate encrypt_content
       
-      if msg_type == "text"
+      unless @message.content.nil?
         timestamp = Time.now.to_i.to_s
   
         @doc = Nokogiri::XML::DocumentFragment.parse "<xml></xml>"
@@ -76,7 +91,7 @@ class WxBaseController < ApplicationController
         root.add_child '<ToUserName><![CDATA[' + @message.from + ']]></ToUserName>'
         root.add_child '<FromUserName><![CDATA[' + @message.to + ']]></FromUserName>'
         root.add_child '<CreateTime>' + timestamp + '</CreateTime>'
-        root.add_child '<MsgType><![CDATA[' + msg_type + ']]></MsgType>'
+        root.add_child '<MsgType><![CDATA[text]]></MsgType>'
         root.add_child '<Content><![CDATA[你好 ' + @message.content + ']]></Content>'
     
         if encrypt_type == "aes"
@@ -85,12 +100,7 @@ class WxBaseController < ApplicationController
           padding = testing.bytes[-1] + 1
           testing = testing[0..-padding]
           
-          arr = {
-            :token => WX['weixin']['token'],
-            :timestamp => timestamp,
-            :nonce => params[:nonce],
-            :msg => output
-          }
+          arr = [WX['weixin']['token'], timestamp, params[:nonce], output]
           sha1 = get_signature arr
   
           @encrypt_doc = Nokogiri::XML::DocumentFragment.parse "<xml></xml>"
@@ -116,24 +126,19 @@ class WxBaseController < ApplicationController
   
   private
   
-  def get_signature(hash)
-    arr = Hash[ hash.sort_by { |key, value| value || "" } ]
-    str = arr.values.join
+  def get_signature(arr)
+    str = arr.sort.join
     Digest::SHA1.hexdigest str
   end
   
   def authenticate(content=nil)
-    arr = {
-      :token => WX['weixin']['token'],
-      :timestamp => params[:timestamp],
-      :nonce => params[:nonce]
-    }
+    arr = [WX['weixin']['token'], params[:timestamp], params[:nonce]]
     
     if content.nil?
       signature = params[:signature]
     else
       signature = params[:msg_signature]
-      arr[:msg] = content
+      arr.push content
     end
     sha1 = get_signature arr
     signature == sha1

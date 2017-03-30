@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317072801) do
+ActiveRecord::Schema.define(version: 20170330101657) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "origin_id"
+    t.string   "app_id"
+    t.string   "app_secret"
+    t.string   "token"
+    t.string   "aes_key"
+    t.boolean  "enabled",    default: false
+    t.boolean  "verified",   default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.string   "title"
@@ -21,10 +33,17 @@ ActiveRecord::Schema.define(version: 20170317072801) do
     t.string   "user_id"
     t.string   "origin"
     t.string   "origin_id"
+    t.string   "url"
+    t.string   "media_id"
+    t.string   "thumb_media_id"
+    t.string   "format"
+    t.float    "longtitude"
+    t.float    "latitude"
+    t.float    "scale"
     t.datetime "send_at"
     t.string   "params"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "users", force: :cascade do |t|

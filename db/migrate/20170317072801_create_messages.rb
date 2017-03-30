@@ -9,6 +9,13 @@ class CreateMessages < ActiveRecord::Migration[5.0]
       t.string :user_id
       t.string :origin
       t.string :origin_id
+      t.string :url
+      t.string :media_id
+      t.string :thumb_media_id
+      t.string :format
+      t.float :longtitude
+      t.float :latitude
+      t.float :scale
       t.datetime :send_at
       t.string :params
 

@@ -66,6 +66,15 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'jquery-ui-rails'
 gem 'ckeditor'
 gem 'devise'
+gem 'openssl'
+
+gem 'nokogiri'
+
+# Application server
+group :unicorn do
+  gem 'unicorn', '~> 5.1.0'
+  gem 'unicorn-worker-killer', '~> 0.4.4'
+end
 
 # I18n
 gem 'gettext_i18n_rails'

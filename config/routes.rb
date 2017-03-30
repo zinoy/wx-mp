@@ -36,5 +36,6 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   
   # WX base
-  get 'weixin', to: 'wx_base#messages'
+  get 'wx/messages', to: 'wx_base#verify_token'
+  post 'wx/messages', to: 'wx_base#messages'
 end

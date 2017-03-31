@@ -13,15 +13,18 @@
 ActiveRecord::Schema.define(version: 20170330101657) do
 
   create_table "accounts", force: :cascade do |t|
+    t.string   "name"
     t.string   "origin_id"
     t.string   "app_id"
     t.string   "app_secret"
     t.string   "token"
     t.string   "aes_key"
-    t.boolean  "enabled",    default: false
-    t.boolean  "verified",   default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "welcome_msg"
+    t.boolean  "enabled",     default: false
+    t.boolean  "verified",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["origin_id"], name: "index_accounts_on_origin_id", unique: true
   end
 
   create_table "messages", force: :cascade do |t|

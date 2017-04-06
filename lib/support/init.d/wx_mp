@@ -5,7 +5,7 @@
 # Authors: zinoyue@gmail.com, @zino
 
 ### BEGIN INIT INFO
-# Provides:          unicorn
+# Provides:          wx_mp
 # Required-Start:    $local_fs $remote_fs $network $syslog redis-server
 # Required-Stop:     $local_fs $remote_fs $network $syslog
 # Default-Start:     2 3 4 5
@@ -173,11 +173,11 @@ start_wx_mp() {
   fi
 
   # If sidekiq is already running, don't start it again.
-  if [ "$sidekiq_status" = "0" ]; then
-    echo "The Sidekiq job dispatcher is already running with pid $spid, not restarting"
-  else
-    RAILS_ENV=$RAILS_ENV bin/background_jobs start &
-  fi
+  #if [ "$sidekiq_status" = "0" ]; then
+  #  echo "The Sidekiq job dispatcher is already running with pid $spid, not restarting"
+  #else
+  #  RAILS_ENV=$RAILS_ENV bin/background_jobs start &
+  #fi
 
   # Wait for the pids to be planted
   wait_for_pids

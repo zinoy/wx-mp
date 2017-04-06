@@ -66,18 +66,19 @@ check_pids(){
   else
     wpid=0
   fi
-  if [ -f "$sidekiq_pid_path" ]; then
-    spid=$(cat "$sidekiq_pid_path")
-  else
-    spid=0
-  fi
+  #if [ -f "$sidekiq_pid_path" ]; then
+  #  spid=$(cat "$sidekiq_pid_path")
+  #else
+  #  spid=0
+  #fi
 }
 
 ## Called when we have started the two processes and are waiting for their pid files.
 wait_for_pids(){
   # We are sleeping a bit here mostly because sidekiq is slow at writing its pid
   i=0;
-  while [ ! -f $web_server_pid_path ] || [ ! -f $sidekiq_pid_path ]; do
+  #while [ ! -f $web_server_pid_path ] || [ ! -f $sidekiq_pid_path ]; do
+  while [ ! -f $web_server_pid_path ]; do
     sleep 0.1;
     i=$((i+1))
     if [ $((i%10)) = 0 ]; then
@@ -133,7 +134,8 @@ check_stale_pids(){
       exit 1
     fi
   fi
-  if [ "$spid" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+  #if [ "$spid" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+  if [ "$spid" != "0" ]; then
     echo "Removing stale Sidekiq job dispatcher pid. This is most likely caused by Sidekiq crashing the last time it ran."
     if ! rm "$sidekiq_pid_path"; then
       echo "Unable to remove stale pid, exiting"
@@ -145,7 +147,8 @@ check_stale_pids(){
 ## If no parts of the service is running, bail out.
 exit_if_not_running(){
   check_stale_pids
-  if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+  #if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+  if [ "$web_status" != "0" ]; then
     echo "wx_mp is not running."
     exit
   fi
@@ -199,11 +202,13 @@ stop_wx_mp() {
   fi
 
   # If something needs to be stopped, lets wait for it to stop. Never use SIGKILL in a script.
-  while [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ]; do
+  #while [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ]; do
+  while [ "$web_status" = "0" ]; do
     sleep 1
     check_status
     printf "."
-    if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+    #if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+    if [ "$web_status" != "0" ]; then
       printf "\n"
       break
     fi
@@ -220,7 +225,8 @@ stop_wx_mp() {
 ## Prints the status of wx_mp and its components.
 print_status() {
   check_status
-  if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+  #if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
+  if [ "$web_status" != "0" ]; then
     echo "wx_mp is not running."
     return
   fi
@@ -260,7 +266,8 @@ reload_wx_mp(){
 ## Restarts Sidekiq and Unicorn.
 restart_wx_mp(){
   check_status
-  if [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ]; then
+  #if [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ]; then
+  if [ "$web_status" = "0" ]; then
     stop_wx_mp
   fi
   start_wx_mp

@@ -113,7 +113,8 @@ check_status(){
   #else
   #  sidekiq_status="-1"
   #fi
-  if [ $web_status = 0 ] && [ $sidekiq_status = 0 ]; then
+  #if [ $web_status = 0 ] && [ $sidekiq_status = 0 ]; then
+  if [ $web_status = 0 ]; then
     wx_mp_status=0
   else
     # http://refspecs.linuxbase.org/LSB_4.1.0/LSB-Core-generic/LSB-Core-generic/iniscrptact.html
@@ -239,7 +240,8 @@ print_status() {
   #else
   #    printf "The wx_mp Sidekiq job dispatcher is \033[31mnot running\033[0m.\n"
   #fi
-  if [ "$web_status" = "0" ] && [ "$sidekiq_status" = "0" ]; then
+  #if [ "$web_status" = "0" ] && [ "$sidekiq_status" = "0" ]; then
+  if [ "$web_status" = "0" ]; then
     printf "wx_mp and all its components are \033[32mup and running\033[0m.\n"
   fi
 }
@@ -255,8 +257,8 @@ reload_wx_mp(){
   RAILS_ENV=$RAILS_ENV bin/web reload
   echo "Done."
 
-  echo "Restarting wx_mp Sidekiq since it isn't capable of reloading its config..."
-  RAILS_ENV=$RAILS_ENV bin/background_jobs restart
+  #echo "Restarting wx_mp Sidekiq since it isn't capable of reloading its config..."
+  #RAILS_ENV=$RAILS_ENV bin/background_jobs restart
 
   wait_for_pids
   print_status

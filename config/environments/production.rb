@@ -93,5 +93,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
   # Puts site to subfolder
+  config.relative_url_root = '/api'
   config.action_controller.relative_url_root = '/api'
 end

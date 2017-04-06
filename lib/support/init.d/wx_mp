@@ -107,12 +107,12 @@ check_status(){
   else
     web_status="-1"
   fi
-  if [ $spid -ne 0 ]; then
-    kill -0 "$spid" 2>/dev/null
-    sidekiq_status="$?"
-  else
-    sidekiq_status="-1"
-  fi
+  #if [ $spid -ne 0 ]; then
+  #  kill -0 "$spid" 2>/dev/null
+  #  sidekiq_status="$?"
+  #else
+  #  sidekiq_status="-1"
+  #fi
   if [ $web_status = 0 ] && [ $sidekiq_status = 0 ]; then
     wx_mp_status=0
   else
@@ -160,9 +160,9 @@ start_wx_mp() {
   if [ "$web_status" != "0" ]; then
     echo "Starting wx_mp Unicorn"
   fi
-  if [ "$sidekiq_status" != "0" ]; then
-    echo "Starting wx_mp Sidekiq"
-  fi
+  #if [ "$sidekiq_status" != "0" ]; then
+  #  echo "Starting wx_mp Sidekiq"
+  #fi
 
   # Then check if the service is running. If it is: don't start again.
   if [ "$web_status" = "0" ]; then
@@ -195,10 +195,10 @@ stop_wx_mp() {
     echo "Shutting down wx_mp Unicorn"
     RAILS_ENV=$RAILS_ENV bin/web stop
   fi
-  if [ "$sidekiq_status" = "0" ]; then
-    echo "Shutting down wx_mp Sidekiq"
-    RAILS_ENV=$RAILS_ENV bin/background_jobs stop
-  fi
+  #if [ "$sidekiq_status" = "0" ]; then
+  #  echo "Shutting down wx_mp Sidekiq"
+  #  RAILS_ENV=$RAILS_ENV bin/background_jobs stop
+  #fi
 
   # If something needs to be stopped, lets wait for it to stop. Never use SIGKILL in a script.
   #while [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ]; do
@@ -234,11 +234,11 @@ print_status() {
   else
       printf "The wx_mp Unicorn web server is \033[31mnot running\033[0m.\n"
   fi
-  if [ "$sidekiq_status" = "0" ]; then
-      echo "The wx_mp Sidekiq job dispatcher with pid $spid is running."
-  else
-      printf "The wx_mp Sidekiq job dispatcher is \033[31mnot running\033[0m.\n"
-  fi
+  #if [ "$sidekiq_status" = "0" ]; then
+  #    echo "The wx_mp Sidekiq job dispatcher with pid $spid is running."
+  #else
+  #    printf "The wx_mp Sidekiq job dispatcher is \033[31mnot running\033[0m.\n"
+  #fi
   if [ "$web_status" = "0" ] && [ "$sidekiq_status" = "0" ]; then
     printf "wx_mp and all its components are \033[32mup and running\033[0m.\n"
   fi

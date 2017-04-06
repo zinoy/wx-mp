@@ -27,5 +27,3 @@ production:
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
   database: wxmp_production
-  # username: wxmp
-  # password: <%= ENV['SMARTADMIN_DATABASE_PASSWORD'] %>

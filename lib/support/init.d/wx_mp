@@ -135,13 +135,12 @@ check_stale_pids(){
     fi
   fi
   #if [ "$spid" != "0" ] && [ "$sidekiq_status" != "0" ]; then
-  if [ "$spid" != "0" ]; then
-    echo "Removing stale Sidekiq job dispatcher pid. This is most likely caused by Sidekiq crashing the last time it ran."
-    if ! rm "$sidekiq_pid_path"; then
-      echo "Unable to remove stale pid, exiting"
-      exit 1
-    fi
-  fi
+  #  echo "Removing stale Sidekiq job dispatcher pid. This is most likely caused by Sidekiq crashing the last time it ran."
+  #  if ! rm "$sidekiq_pid_path"; then
+  #    echo "Unable to remove stale pid, exiting"
+  #    exit 1
+  #  fi
+  #fi
 }
 
 ## If no parts of the service is running, bail out.

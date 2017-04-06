@@ -24,7 +24,8 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
+  config.assets.enabled = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to
   # config/initializers/assets.rb
@@ -90,4 +91,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  # Puts site to subfolder
+  config.action_controller.relative_url_root = '/api'
 end

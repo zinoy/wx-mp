@@ -20,6 +20,7 @@ class WxBaseController < ApplicationController
     # logger.debug request.raw_post
     xml_doc  = Nokogiri::XML(request.raw_post)
 
+    puts xml_doc
     encrypt_content = xml_doc.xpath("//Encrypt").first.content unless xml_doc.xpath("//Encrypt").first.nil?
     
     if authenticate encrypt_content
@@ -154,6 +155,7 @@ class WxBaseController < ApplicationController
       arr.push content
     end
     sha1 = get_signature arr
+    puts sha1
     signature == sha1
   end
   

@@ -201,16 +201,21 @@ stop_wx_mp() {
   #  RAILS_ENV=$RAILS_ENV bin/background_jobs stop
   #fi
 
+  timer=0
   # If something needs to be stopped, lets wait for it to stop. Never use SIGKILL in a script.
   #while [ "$web_status" = "0" ] || [ "$sidekiq_status" = "0" ]; do
   while [ "$web_status" = "0" ]; do
     sleep 1
     check_status
+    timer=`expr $timer + 1`
     printf "."
     #if [ "$web_status" != "0" ] && [ "$sidekiq_status" != "0" ]; then
     if [ "$web_status" != "0" ]; then
       printf "\n"
       break
+    elif [ $timer == 30 ]; then
+      printf "\nTimeout!"
+      exit 1
     fi
   done
 

@@ -2,6 +2,4 @@
 
 require_relative 'config/environment'
 
-map Smartadmin::Application.config.relative_url_root || "/" do
-  run Rails.application
-end
+run Rails.application

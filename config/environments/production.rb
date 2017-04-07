@@ -30,6 +30,8 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to
   # config/initializers/assets.rb
 
+  config.time_zone = 'Asia/Shanghai'
+
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
@@ -91,8 +93,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  
-  # Puts site to subfolder
-  config.relative_url_root = '/api'
-  config.action_controller.relative_url_root = '/api'
 end

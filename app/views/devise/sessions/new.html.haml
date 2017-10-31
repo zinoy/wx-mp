@@ -3,7 +3,7 @@
 - content_for :top_right do
   %span#extr-page-header-space
     %span.hidden-mobile.hiddex-xs Need an account?
-    = link_to 'Create account', miscellaneous_register_path, class: 'btn btn-danger'
+    = link_to 'Create account', new_user_registration_path, class: 'btn btn-danger'
 / MAIN CONTENT
 #content.container
   .row
@@ -48,7 +48,7 @@
                   %i.fa.fa-lock.txt-color-teal
                   Enter your password
               .note
-                = link_to 'Forgot password?', miscellaneous_forgot_password_path
+                = link_to 'Forgot password?', '#'
             %section
               %label.checkbox
                 = f.check_box :remember_me

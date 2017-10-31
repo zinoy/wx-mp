@@ -24,18 +24,25 @@
     .col-sm-12
       .panel.panel-default
         .panel-body.no-padding
-          %table.table.table-striped.table-bordered.dataTable.no-footer
-            %thead
-              %tr
-                %th Title
-                %th Content
-                %th Time
-            %tbody
-              - @msgs.each do |msg|
+          .table-responsive
+            %table.table.table-striped.table-hover.dataTable.no-footer
+              %thead
                 %tr
-                  %td= msg.title
-                  %td= msg.content
-                  %td= msg.created_at.strftime("%Y-%m-%d %H:%M:%S")
+                  %th From
+                  %th Content
+                  %th Type
+                  %th Time
+              %tbody
+                - @msgs.each do |msg|
+                  - if msg.msg_type == 'image' || msg.msg_type == 'voice' || msg.msg_type == 'video'
+                    - content = msg.media_id
+                  - if msg.msg_type == 'location'
+                    - content = "<b>LNG:</b>".html_safe + " #{msg.longtitude}, " + "<b>LAT:</b>".html_safe + " #{msg.latitude}"
+                  %tr
+                    %td= msg.from
+                    %td= content || (msg.msg_type == 'text' ? msg.content : msg.title)
+                    %td= msg.msg_type
+                    %td= msg.created_at.strftime("%Y-%m-%d %H:%M:%S")
       .dt-toolbar-footer
         .col-xs-12.col-sm-6
           = will_paginate @msgs

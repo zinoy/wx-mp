@@ -1,0 +1,184 @@
+%h2.email-open-header
+  Reply to &gt; Re: Timelogs of last client
+  %span.label.txt-color-white inbox
+  %a.txt-color-darken.pull-right{"data-original-title" => "Print", "data-placement" => "left", :href => "javascript:void(0);", :rel => "tooltip"}
+    %i.fa.fa-print
+%form.form-horizontal{:action => "dummy.php", :enctype => "multipart/form-data", :method => "POST"}
+  .inbox-info-bar.no-padding
+    .row
+      .form-group
+        %label.control-label.col-md-1
+          %strong To
+        .col-md-11
+          %select.select2{"data-select-search" => "true", :multiple => "multiple", :style => "width:100%"}
+            %option{:selected => "selected", :value => "sunny.orlaf@smartadmin.com"} sunny.orlaf@smartadmin.com
+            %option{:value => "rachael.hawi@smartadmin.com"} rachael.hawi@smartadmin.com
+            %option{:value => "michael.safiel@smartadmin.com"} michael.safiel@smartadmin.com
+            %option{:value => "alex.jones@infowars.com"} alex.jones@infowars.com
+            %option{:value => "oruf.matalla@gmail.com"} oruf.matalla@gmail.com
+            %option{:value => "hr@smartadmin.com"} hr@smartadmin.com
+            %option{:value => "IT@smartadmin.com"} IT@smartadmin.com
+          %em
+            %a.show-next{"data-original-title" => "Carbon Copy", "data-placement" => "bottom", :href => "javascript:void(0);", :rel => "tooltip"} CC
+  .inbox-info-bar.no-padding.hidden
+    .row
+      .form-group
+        %label.control-label.col-md-1
+          %strong CC
+        .col-md-11
+          %select.select2{"data-select-search" => "true", :multiple => "multiple", :style => "width:100%"}
+            %option{:value => "sunny.orlaf@smartadmin.com"} sunny.orlaf@smartadmin.com
+            %option{:value => "rachael.hawi@smartadmin.com"} rachael.hawi@smartadmin.com
+            %option{:value => "michael.safiel@smartadmin.com"} michael.safiel@smartadmin.com
+            %option{:value => "alex.jones@infowars.com"} alex.jones@infowars.com
+            %option{:value => "oruf.matalla@gmail.com"} oruf.matalla@gmail.com
+            %option{:value => "hr@smartadmin.com"} hr@smartadmin.com
+            %option{:value => "IT@smartadmin.com"} IT@smartadmin.com
+          %em
+            %a.show-next{"data-original-title" => "Blind Carbon Copy", "data-placement" => "bottom", :href => "javascript:void(0);", :rel => "tooltip"} BCC
+  .inbox-info-bar.no-padding.hidden
+    .row
+      .form-group
+        %label.control-label.col-md-1
+          %strong BCC
+        .col-md-11
+          %select.select2{"data-select-search" => "true", :multiple => "multiple", :style => "width:100%"}
+            %option{:value => "sunny.orlaf@smartadmin.com"} sunny.orlaf@smartadmin.com
+            %option{:value => "rachael.hawi@smartadmin.com"} rachael.hawi@smartadmin.com
+            %option{:value => "michael.safiel@smartadmin.com"} michael.safiel@smartadmin.com
+            %option{:value => "alex.jones@infowars.com"} alex.jones@infowars.com
+            %option{:value => "oruf.matalla@gmail.com"} oruf.matalla@gmail.com
+            %option{:value => "hr@smartadmin.com"} hr@smartadmin.com
+            %option{:value => "IT@smartadmin.com"} IT@smartadmin.com
+  .inbox-info-bar.no-padding
+    .row
+      .form-group
+        %label.control-label.col-md-1
+          %strong Subject
+        .col-md-11
+          %input.form-control{:placeholder => "Email Subject", :type => "text", :value => "Re: Timelogs of last client"}/
+          %em
+            %a.show-next{"data-original-title" => "Attachments", "data-placement" => "bottom", :href => "javascript:void(0);", :rel => "tooltip"}
+              %i.fa.fa-paperclip.fa-lg
+  .inbox-info-bar.no-padding.hidden
+    .row
+      .form-group
+        %label.control-label.col-md-1
+          %strong Attachments
+        .col-md-11
+          %input.form-control.fileinput{:multiple => "multiple", :type => "file"}/
+  .inbox-message.no-padding
+    #emailbody
+      %br/
+      = succeed "Thanks," do
+        %br/
+      %br/
+      %strong John Doe
+      %br/
+      %br/
+      .email-reply-text
+        %p
+          Sadi Orlaf
+          %span.text-primary &lt;sadi.orlaf@smartadmin.com&gt;
+          to me on 12:10AM, 12 March 2013
+        %div
+          %p
+            Hey James,
+          %p
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+          %p
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+            %i.fa.fa-smile-o
+          %br/
+          %br/
+          Thanks,
+          %br/
+          %strong Sadi Orlaf
+          %br/
+          %br/
+          %small
+            General Manager - Finance Department
+            %br/
+            231 Ajax Rd, Detroit MI - 48212, USA
+            %br/
+            %i.fa.fa-phone (313) 647 6471
+          %br/
+          = image_tag 'logo-blacknwhite.png', height: '20', width: 'auto', style: 'margin-top:7px; padding-right:9px; border-right:1px dotted #9B9B9B;'
+  .inbox-compose-footer
+    %button.btn.btn-danger{:type => "button"}
+      Disregard
+    %button.btn.btn-info{:type => "button"}
+      Draft
+    %button#send.btn.btn-primary.pull-right{"data-loading-text" => "<i class='fa fa-refresh fa-spin'></i>   Sending...", :type => "button"}
+      Send
+      %i.fa.fa-arrow-circle-right.fa-lg
+.email-infobox
+  .well.well-sm.well-light
+    %h5 Related Invoice
+    %ul.list-unstyled
+      %li
+        %i.fa.fa-file.fa-fw.text-success
+        %a{:href => "javascript:void(0);"} #4831 - Paid
+      %li
+        %i.fa.fa-file.fa-fw.text-danger
+        %a{:href => "javascript:void(0);"}
+          %strong #4835 - Unpaid
+  .well.well-sm.well-light
+    %h5 Upcoming Meetings
+    %p
+      %span.label.label-success
+        %i.fa.fa-check
+        %strike Agenda Review @ 10 AM
+    %p
+      %span.label.label-primary
+        %i.fa.fa-clock-o
+        Client Meeting @ 2:30 PM
+    %p
+      %span.label.label-warning
+        %i.fa.fa-clock-o
+        Salary Review @ 4:00 PM
+  %ul.list-inline
+    %li= image_tag 'avatars/5.png', alt: 'me', width: '30px'
+    %li= image_tag 'avatars/3.png', alt: 'me', width: '30px'
+    %li= image_tag 'avatars/sunny.png', alt: 'me', width: '30px'
+    %li
+      %a{:href => "javascript:void(0);"} 1 more
+:javascript
+  // DO NOT REMOVE : GLOBAL FUNCTIONS!
+  	//pageSetUp();
+  	runAllForms();
+  	
+  	// PAGE RELATED SCRIPTS
+  	
+  	$(".table-wrap [rel=tooltip]").tooltip();
+  	
+  
+  
+  		$('#emailbody').summernote({
+  			height : 250,
+  			focus : true,
+  			tabsize : 2
+  		});
+  	
+  	
+  	$(".show-next").click(function(){
+  		$this = $(this);
+  		$this.hide();
+  		$this.parent().parent().parent().parent().parent().next().removeClass("hidden");
+  	})
+  	
+  	$("#send").click(function(){
+  
+  	    var $btn = $(this);
+  	    $btn.button('loading');
+  		
+  		// wait for animation to finish and execute send script
+  		setTimeout(function (){
+  			//Insert send script here
+  
+  			
+  			// Load inbox once send is complete
+  			loadURL("#{ajax_email_list_path}", $('#inbox-content > .table-wrap'))
+              
+           }, 1000); // how long do you want the delay to be? 
+  	});

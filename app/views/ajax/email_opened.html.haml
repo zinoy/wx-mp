@@ -1,0 +1,137 @@
+%h2.email-open-header
+  Re: Timelogs of last client
+  %span.label.txt-color-white inbox
+  %a.txt-color-darken.pull-right{"data-original-title" => "Print", "data-placement" => "left", :href => "javascript:void(0);", :rel => "tooltip"}
+    %i.fa.fa-print
+.inbox-info-bar
+  .row
+    .col-sm-9
+      = image_tag 'avatars/5.png', alt: 'me', class: 'away'
+      %strong Sadi Orlaf
+      %span.hidden-mobile
+        \&lt;sadi.orlaf@smartadmin.com&gt;to
+        %strong me
+        on
+        %i 12:10AM, 12 March 2013
+    .col-sm-3.text-right
+      .btn-group.text-left
+        %button.btn.btn-primary.btn-sm.replythis
+          %i.fa.fa-reply
+          Reply
+        %button.btn.btn-primary.btn-sm.dropdown-toggle{"data-toggle" => "dropdown"}
+          %i.fa.fa-angle-down
+        %ul.dropdown-menu.pull-right
+          %li
+            %a.replythis{:href => "javascript:void(0);"}
+              %i.fa.fa-reply
+              Reply
+          %li
+            %a.replythis{:href => "javascript:void(0);"}
+              %i.fa.fa-mail-forward
+              Forward
+          %li
+            %a{:href => "javascript:void(0);"}
+              %i.fa.fa-print
+              Print
+          %li.divider
+          %li
+            %a{:href => "javascript:void(0);"}
+              %i.fa.fa-ban
+              Mark as spam!
+          %li
+            %a{:href => "javascript:void(0);"}
+              %i.fa.fa-trash-o
+              Delete forever
+.inbox-message
+  %p
+    Hey James,
+  %p
+    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+  %p
+    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
+    %i.fa.fa-smile-o
+  %br/
+  %br/
+  Thanks,
+  %br/
+  %strong Sadi Orlaf
+  %br/
+  %br/
+  %small
+    General Manager - Finance Department
+    %br/
+    231 Ajax Rd, Detroit MI - 48212, USA
+    %br/
+    %i.fa.fa-phone (313) 647 6471
+  %br/
+  = image_tag 'logo-blacknwhite.png', height: '20', width: 'auto', style: 'margin-top:7px; padding-right:9px; border-right:1px dotted #9B9B9B;'
+.inbox-download
+  2 attachment(s) —
+  %a{:href => "javascript:void(0);"} Download all attachments
+  %ul.inbox-download-list
+    %li
+      .well.well-sm
+        %span
+          = image_tag 'demo/sample.jpg'
+        %br/
+        %strong rocketlaunch.jpg
+        %br/
+        400 kb
+        %br/
+        %a{:href => "javascript:void(0);"} Download
+        |
+        %a{:href => "javascript:void(0);"} View
+    %li
+      .well.well-sm
+        %span
+          %i.fa.fa-file
+        %br/
+        %strong timelogs.xsl
+        %br/
+        1.3 mb
+        %br/
+        %a{:href => "javascript:void(0);"} Download
+        |
+        %a{:href => "javascript:void(0);"} Share
+.email-infobox
+  .well.well-sm.well-light
+    %h5 Related Invoice
+    %ul.list-unstyled
+      %li
+        %i.fa.fa-file.fa-fw.text-success
+        %a{:href => "javascript:void(0);"} #4831 - Paid
+      %li
+        %i.fa.fa-file.fa-fw.text-danger
+        %a{:href => "javascript:void(0);"}
+          %strong #4835 - Unpaid
+  .well.well-sm.well-light
+    %h5 Upcoming Meetings
+    %p
+      %span.label.label-success
+        %i.fa.fa-check
+        %strike Agenda Review @ 10 AM
+    %p
+      %span.label.label-primary
+        %i.fa.fa-clock-o
+        Client Meeting @ 2:30 PM
+    %p
+      %span.label.label-warning
+        %i.fa.fa-clock-o
+        Salary Review @ 4:00 PM
+  %ul.list-inline
+    %li= image_tag 'avatars/5.png', alt: 'me', width: '30px'
+    %li= image_tag 'avatars/3.png', alt: 'me', width: '30px'
+    %li= image_tag 'avatars/sunny.png', alt: 'me', width: '30px'
+    %li
+      %a{:href => "javascript:void(0);"} 1 more
+:javascript
+  // DO NOT REMOVE : GLOBAL FUNCTIONS!
+  //pageSetUp();
+  
+  // PAGE RELATED SCRIPTS
+  
+  $(".table-wrap [rel=tooltip]").tooltip();
+
+  $(".replythis").click(function(){
+  	loadURL("#{ajax_email_reply_path}", $('#inbox-content > .table-wrap'));
+  })

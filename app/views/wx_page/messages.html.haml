@@ -1,0 +1,43 @@
+- content_for :ribbon do
+  / RIBBON
+  #ribbon
+    / breadcrumb
+    %ol.breadcrumb
+      %li Home
+      %li Messages
+    / end breadcrumb
+
+  / END RIBBON
+
+/ #MAIN CONTENT
+#content
+  .row
+    .col-xs-12.col-sm-7.col-md-7.col-lg-4
+      %h1.page-title.txt-color-blueDark
+        / PAGE HEADER
+        %i.fa-fw.fa.fa-comments
+        Messages
+        %span
+          \&gt;
+          List
+  .row
+    .col-sm-12
+      .panel.panel-default
+        .panel-body.no-padding
+          %table.table.table-striped.table-bordered.dataTable.no-footer
+            %thead
+              %tr
+                %th Title
+                %th Content
+                %th Time
+            %tbody
+              - @msgs.each do |msg|
+                %tr
+                  %td= msg.title
+                  %td= msg.content
+                  %td= msg.created_at.strftime("%Y-%m-%d %H:%M:%S")
+      .dt-toolbar-footer
+        .col-xs-12.col-sm-6
+          = will_paginate @msgs
+
+/ END #MAIN CONTENT

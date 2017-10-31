@@ -1,0 +1,124 @@
+!!!
+%html{:id => "#{yield :html_id}", :lang => "en-us"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %title SmartAdmin - Ruby on Rails
+    = csrf_meta_tags
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
+    = stylesheet_link_tag 'application', media: 'screen'
+    / FAVICONS
+    = favicon_link_tag 'favicon/favicon.ico'
+    = favicon_link_tag 'favicon/favicon.ico', rel: 'icon'
+    /
+      Specifying a Webpage Icon for Web Clip
+      Ref: https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html
+    = favicon_link_tag 'splash/sptouch-icon-iphone.png', type: 'image/png', rel: 'apple-touch-icon'
+    = favicon_link_tag 'splash/touch-icon-ipad.png', type: 'image/png', sizes: '76x76', rel: 'apple-touch-icon'
+    = favicon_link_tag 'splash/touch-icon-iphone-retina.png', type: 'image/png', sizes: '120x120', rel: 'apple-touch-icon'
+    = favicon_link_tag 'splash/touch-icon-ipad-retina.png', type: 'image/png', sizes: '152x152', rel: 'apple-touch-icon'
+    / iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
+    %meta{:content => "black", :name => "apple-mobile-web-app-status-bar-style"}/
+    / Startup image for web apps
+    = favicon_link_tag 'splash/ipad-landscape.png', type: 'image/png', rel: 'apple-touch-startup-image', media: 'screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)'
+    = favicon_link_tag 'splash/ipad-portrait.png', type: 'image/png', rel: 'apple-touch-startup-image', media: 'screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)'
+    = favicon_link_tag 'splash/iphone.png', type: 'image/png', rel: 'apple-touch-startup-image', media: 'screen and (max-device-width: 320px)'
+    = yield :head
+  /
+    TABLE OF CONTENTS.
+    
+    Use search to find needed section.
+    
+    \===================================================================
+    
+    |  01. #CSS Links                |  all CSS links and file paths  |
+    |  02. #FAVICONS                 |  Favicon links and file paths  |
+    |  03. #GOOGLE FONT              |  Google font link              |
+    |  04. #APP SCREEN / ICONS       |  app icons, screen backdrops   |
+    |  05. #BODY                     |  body tag                      |
+    |  06. #HEADER                   |  header tag                    |
+    |  07. #PROJECTS                 |  project lists                 |
+    |  08. #TOGGLE LAYOUT BUTTONS    |  layout buttons and actions    |
+    |  09. #MOBILE                   |  mobile view dropdown          |
+    |  10. #SEARCH                   |  search field                  |
+    |  11. #NAVIGATION               |  left panel & navigation       |
+    |  12. #RIGHT PANEL              |  right panel userlist          |
+    |  13. #MAIN PANEL               |  main panel                    |
+    |  14. #MAIN CONTENT             |  content holder                |
+    |  15. #PAGE FOOTER              |  page footer                   |
+    |  16. #SHORTCUT AREA            |  dropdown shortcuts area       |
+    |  17. #PLUGINS                  |  all scripts and plugins       |
+    
+    \===================================================================
+  / #BODY
+  /
+    Possible Classes
+    
+    * 'smart-style-{SKIN#}'
+    * 'smart-rtl'         - Switch theme mode to RTL
+    * 'menu-on-top'       - Switch to top navigation (no DOM change required)
+    * 'no-menu'			      - Hides the menu completely
+    * 'hidden-menu'       - Hides the main menu but still accessable by hovering over left edge
+    * 'fixed-header'      - Fixes the header
+    * 'fixed-navigation'  - Fixes the main menu
+    * 'fixed-ribbon'      - Fixes breadcrumb
+    * 'fixed-page-footer' - Fixes footer
+    * 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
+  %body{:class => "#{yield :body_class}"}
+    / HEADER
+    = render partial: 'layouts/header' unless @lock_screen
+    / END HEADER
+    / Left panel : Navigation area
+    / Note: This width of the aside area can be adjusted through LESS variables
+    = render partial: 'layouts/left_panel' if current_user && !@simulate_no_user
+    / END NAVIGATION
+    / MAIN PANEL
+    #main{:role => "main"}
+      = yield :ribbon
+      - if notice
+        .alert.alert-success.fade.in
+          %button.close{"data-dismiss" => "alert"}
+            ×
+          %i.fa-fw.fa.fa-check
+          = notice
+      - if alert
+        .alert.alert-warning.fade.in
+          %button.close{"data-dismiss" => "alert"}
+            ×
+          %i.fa-fw.fa.fa-warning
+          = alert
+      = yield
+    / END MAIN PANEL
+    / PAGE FOOTER
+    = render partial: 'layouts/footer' if current_user && !@simulate_no_user
+    / END PAGE FOOTER
+    /
+      SHORTCUT AREA : With large tiles (activated via clicking user name tag)
+      Note: These tiles are completely responsive,
+      you can add as many as you like
+    = render partial: 'layouts/tiles' if current_user && !@simulate_no_user
+    / END SHORTCUT AREA
+    / ==================================================
+    / PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)
+    = javascript_include_tag 'plugin/pace/pace', 'data-pace-options' => '{ "restartOnRequestAfter": true }'
+    = javascript_include_tag 'application'
+    /[if IE 8]
+      <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+    = yield(:scripts).present? ? yield(:scripts) : render(partial: 'layouts/scripts')
+    / Your GOOGLE ANALYTICS CODE Below
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-XXXXXXXX-X']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();

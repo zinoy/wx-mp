@@ -2,19 +2,6 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'miscellaneous#blank_page'
-  # Miscellaneous
-  get 'miscellaneous/login',
-      to: 'miscellaneous#login',
-      as: :miscellaneous_login
-  get 'miscellaneous/register',
-      to: 'miscellaneous#register',
-      as: :miscellaneous_register
-  get 'miscellaneous/forgot_password',
-      to: 'miscellaneous#forgot_password',
-      as: :miscellaneous_forgot_password
-  get 'miscellaneous/locked_screen',
-      to: 'miscellaneous#locked_screen',
-      as: :miscellaneous_locked_screen
 
   # AJAX
   get 'ajax/email_compose', to: 'ajax#email_compose', as: :ajax_email_compose
@@ -38,4 +25,7 @@ Rails.application.routes.draw do
   # WX base
   get 'wx/messages', to: 'wx_base#verify_token'
   post 'wx/messages', to: 'wx_base#messages'
+  
+  # WX page
+  get 'messages', to: 'wx_page#messages'
 end

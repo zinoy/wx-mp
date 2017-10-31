@@ -127,9 +127,9 @@ module ApplicationHelper
   def left_menu_content
     [
       {
-        href: root_path,
+        href: messages_url,
         title: _('blank'),
-        content: "<i class='fa fa-lg fa-fw fa-home'></i> <span class='menu-item-parent'>" + _('Blank') + "</span>",
+        content: "<i class='fa fa-lg fa-fw fa-comments'></i> <span class='menu-item-parent'>" + _('Messages') + "</span>",
       },
     ]
   end

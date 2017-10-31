@@ -12,5 +12,6 @@
 
 User.create(
   email: 'smartadmin@example.org',
-  password: 'smartadmin'
+  password: 'smartadmin',
+  name: 'Admin'
 )

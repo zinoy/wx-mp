@@ -1,0 +1,2 @@
+module WxPageHelper
+end

@@ -1,7 +1,7 @@
 development:
   weixin:
     openid: gh_7eca389a5ba0
-    appid: wx1bd01df52c6ba150
+    appid: wxa58fc012891157cc
     appsecret: 3c572f5c20707445a90fa97d2da7749f
     aeskey: KS7nrcr7KV4tUco5Tvj6k6TzOT7VvSgj8O2xZv6wImr
     token: catchzino33333
@@ -9,7 +9,7 @@ development:
 production:
   weixin:
     openid: gh_7eca389a5ba0
-    appid: wx1bd01df52c6ba150
+    appid: wxa58fc012891157cc
     appsecret: 3c572f5c20707445a90fa97d2da7749f
     aeskey: KS7nrcr7KV4tUco5Tvj6k6TzOT7VvSgj8O2xZv6wImr
     token: catchzino33333

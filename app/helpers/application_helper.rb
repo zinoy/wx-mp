@@ -131,6 +131,11 @@ module ApplicationHelper
         title: _('blank'),
         content: "<i class='fa fa-lg fa-fw fa-comments'></i> <span class='menu-item-parent'>" + _('Messages') + "</span>",
       },
+      {
+        href: sn_new_path,
+        title: _('blank'),
+        content: "<i class='fa fa-lg fa-fw fa-cubes'></i> <span class='menu-item-parent'>" + _('SN Generator') + " </span>",
+      },
     ]
   end
 

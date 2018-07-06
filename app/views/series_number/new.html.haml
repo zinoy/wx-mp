@@ -1,0 +1,149 @@
+- content_for :ribbon do
+  / RIBBON
+  #ribbon
+    / breadcrumb
+    %ol.breadcrumb
+      %li Home
+      %li Series Code Generator
+    / end breadcrumb
+
+  / END RIBBON
+
+/ #MAIN CONTENT
+#content
+  .row
+    .col-xs-12.col-sm-7.col-md-7.col-lg-4
+      %h1.page-title.txt-color-blueDark
+        / PAGE HEADER
+        %i.fa.fa-fw.fa-comments
+        Series Code
+        %span
+          \&gt;
+          Generate
+
+  %section#widget-grid
+    .row
+      %article.col-xs-12.col-sm-12.com-md-6.col-lg-6
+        .jarviswidget#wid-id-0(data-widget-editbutton="false")
+          %header
+            %span.widget-icon
+              %i.fa.fa-edit
+            %h2 Form
+          %div
+            .jarviswidget-editbox
+            .widget-body.no-padding
+              = form_tag sn_new_path, class: 'smart-form' do
+                %header Basic
+                %fieldset
+                  %section
+                    = label_tag :count, nil, class: 'label'
+                    %label.input
+                      = number_field_tag :count, cfg[:count], min: 10, step: 10, required: true
+
+                %header Format
+                %fieldset
+                  %section
+                    = label_tag :length, nil, class: 'label'
+                    %label.input
+                      = number_field_tag :length, cfg[:length], in: 4..32, required: true
+                    .note
+                      %i.fa-fw.fa.fa-info-circle
+                      Prefix length included
+                %fieldset
+                  %section
+                    %label.label Include
+                    %label.toggle
+                      = check_box_tag :number, "1", cfg[:number]
+                      %i(data-swchon-text="ON" data-swchoff-text="OFF")
+                      Number
+                    %label.toggle
+                      = check_box_tag :alphabet, "1", cfg[:alphabet]
+                      %i(data-swchon-text="ON" data-swchoff-text="OFF")
+                      Alphabet
+                    %label.toggle
+                      = check_box_tag :friendly, "1", cfg[:friendly]
+                      %i(data-swchon-text="ON" data-swchoff-text="OFF")
+                      Friendly letters only
+                  %section
+                    %label.label Misc
+                    %label.toggle
+                      = check_box_tag :case_sensitive, "1", cfg[:case_sensitive]
+                      %i(data-swchon-text="ON" data-swchoff-text="OFF")
+                      Case sensitive
+
+                %header Output
+                %fieldset
+                  %section
+                    = label_tag :prefix, nil, class: 'label'
+                    %label.input
+                      = text_field_tag :prefix, cfg[:prefix]
+
+                %footer
+                  = button_tag "Submit", class: "btn btn-primary"
+                  = button_tag "Reset", class: "btn btn-default", type: "reset"
+
+      %article.col-xs-12.col-sm-12.com-md-6.col-lg-6
+        - if list.nil?
+          .alert.alert-info.no-margin
+            %p.text-default
+              %i.fa-fw.fa.fa-info
+              To generate new codes, setting up options if needed then press <b>"Submit"</b>.
+        - else
+          .jarviswidget#wid-id-1(data-widget-editbutton="false")
+            %header
+              .jarviswidget-ctrls
+                %a.button-icon.jarviswidget-toggle-btn(data-toggle="modal" data-target="#downloadModal" rel="tooltip" data-original-title="Save")
+                  %i.fa.fa-download
+              %span.widget-icon
+                %i.fa.fa-database
+              %h2
+                Result (key:
+                = key
+                )
+            %div
+              .jarviswidget-editbox
+              .widget-body.no-padding
+                .row.codes
+                  .col-md-12
+                    - if gaps < 500
+                      .alert.alert-warning
+                        %i.fa-fw.fa.fa-warning
+                        Lack of variety codes are easy to guess, please do
+                        %b NOT
+                        use in production environment.
+                    - if list.size < params[:count].to_i
+                      .alert.alert-warning
+                        %i.fa-fw.fa.fa-warning
+                        %b Length
+                        is too small to generate enough unique codes.
+                    .alert.alert-info
+                      %i.fa-fw.fa.fa-info
+                      = number_with_delimiter list.size
+                      records.
+                  - list.each do |item|
+                    .col-md-4.code= item
+
+  - unless key.nil?
+    #downloadModal.modal.fade(tabindex="-1")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close(type="button" data-dismiss="modal")
+              &times;
+            %h4.modal-title Download
+          .modal-body
+            .row
+              .col-md-12
+                %p Choose a format to download:
+                %ul
+                  %li
+                    = link_to sn_dl_path(key, 'csv'), class: 'button-icon jarviswidget-toggle-btn', target: '_blank' do
+                      %i.fa.fa-file-text-o
+                      CSV
+                  %li
+                    = link_to sn_dl_path(key, 'xlsx'), class: 'button-icon jarviswidget-toggle-btn', target: '_blank' do
+                      %i.fa.fa-file-excel-o
+                      Excel 2007
+          .modal-footer
+            %button.btn.btn-default(type="button" data-dismiss="modal") Close
+/ END #MAIN CONTENT

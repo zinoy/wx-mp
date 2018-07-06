@@ -47,3 +47,13 @@
     font-weight: 600;
     font-style: normal;
 }
+
+.codes {
+    padding: 14px;
+    
+    .code {
+        font-family: 'DejaVu Sans Mono', Menlo, Monaco, Consolas, monospace;
+        font-size: 14px;
+        line-height: 28px;
+    }
+}

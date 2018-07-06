@@ -1,0 +1,2 @@
+class SeriesBatch < ApplicationRecord
+end

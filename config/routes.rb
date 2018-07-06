@@ -28,4 +28,12 @@ Rails.application.routes.draw do
   
   # WX page
   get 'messages', to: 'wx_page#messages'
+  get 'followers', to: 'wx_page#followers'
+  
+  # SN Generator
+  get 'sn', to: 'series_number#list'
+  get 'sn/new', to: 'series_number#new'
+  post 'sn/new', to: 'series_number#new'
+  get 'sn/dl/:key', to: 'series_number#download', as: :sn_dl
+
 end

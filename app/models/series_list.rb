@@ -1,0 +1,2 @@
+class SeriesList < ApplicationRecord
+end

@@ -27,7 +27,7 @@ class WxBaseController < ApplicationController
 
       encrypt_type = params[:encrypt_type]
       if encrypt_type == "aes"
-        aeskey = WX['weixin']['aeskey']
+        # aeskey = WX['weixin']['aeskey']
         appid = WX['weixin']['appid']
         content = aes256_decrypt encrypt_content
         

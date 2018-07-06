@@ -1,5 +1,5 @@
 class MiscellaneousController < ApplicationController
-  skip_before_filter :authenticate_user!, only: [:register, :forgot_password]
+  skip_before_action :authenticate_user!, only: [:register, :forgot_password]
 
   def login
     @simulate_no_user = true

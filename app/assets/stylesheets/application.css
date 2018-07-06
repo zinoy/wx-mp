@@ -15,8 +15,10 @@
  *= require font-awesome
  *
  * SmartAdmin Styles : Caution! DO NOT change the order
+ *= require smartadmin-production-plugins
  *= require smartadmin-production
  *= require smartadmin-skins
+ *= require smartadmin-rtl
  *
  * We recommend you use "your_style.scss" to override SmartAdmin
  * specific styles this will also ensure you retrain your customization with

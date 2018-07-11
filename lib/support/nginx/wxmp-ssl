@@ -4,7 +4,7 @@
 upstream wxmp-unicorn {
   # Gitlab socket file,
   # for Omnibus this would be: unix:/var/opt/wxmp/wxmp-workhorse/socket
-  server unix:/home/git/wxmp/tmp/sockets/wx_mp.socket fail_timeout=0;
+  server unix:/home/wxmp/wx_mp/tmp/sockets/wx_mp.socket fail_timeout=0;
 }
 
 map $http_upgrade $connection_upgrade_wxmp_ssl {
@@ -145,7 +145,7 @@ server {
   location ~ ^/(404|422|500|502|503)\.html$ {
     # Location to the Gitlab's public directory,
     # for Omnibus this would be: /opt/wxmp/embedded/service/wxmp-rails/public
-    root /home/git/wxmp/public;
+    root /home/wxmp/wx_mp/public;
     internal;
   }
 }

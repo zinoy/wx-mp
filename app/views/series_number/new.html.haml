@@ -23,7 +23,7 @@
 
   %section#widget-grid
     .row
-      %article.col-xs-12.col-sm-12.com-md-6.col-lg-6
+      %article.col-xs-12.col-sm-12.com-md-4.col-lg-4
         .jarviswidget#wid-id-0(data-widget-editbutton="false")
           %header
             %span.widget-icon
@@ -82,7 +82,7 @@
                   = button_tag "Submit", class: "btn btn-primary"
                   = button_tag "Reset", class: "btn btn-default", type: "reset"
 
-      %article.col-xs-12.col-sm-12.com-md-6.col-lg-6
+      %article.col-xs-12.col-sm-12.com-md-8.col-lg-8
         - if list.nil?
           .alert.alert-info.no-margin
             %p.text-default
@@ -121,7 +121,7 @@
                       = number_with_delimiter list.size
                       records.
                   - list.each do |item|
-                    .col-md-4.code= item
+                    .col-md-3.code= item
 
   - unless key.nil?
     #downloadModal.modal.fade(tabindex="-1")
